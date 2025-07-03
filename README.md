@@ -1,11 +1,6 @@
 # Universal-Scraper
 A plug-and-play Selenium scraper for any tabular (or row-based) web page.
 
-Here’s your complete README.md — clean, professional, and ready to drop into your scraper repo. It includes everything: intro, full features with code snippets, setup instructions, and ChromeDriver configuration.
-
-⸻
-
-
 # 🕷️ Universal Selenium Web Scraper
 
 A plug-and-play, highly configurable Python scraper built with Selenium. Extract tabular or row-based data from any website by simply editing a configuration dictionary — no code rewrites required.
