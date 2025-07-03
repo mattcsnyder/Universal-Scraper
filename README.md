@@ -11,8 +11,10 @@ A plug-and-play, highly configurable Python scraper built with Selenium. Extract
 
 ---
 
+---
 ### 🧩 Modular and Reusable Scraper Architecture  
 This scraper is designed to be reused across any website with tabular or row-based data structures. The scraping logic, browser setup, and storage mechanisms are fully decoupled, making the core logic universally portable with zero rewrites required. Just update the `CONFIG` dictionary — no need to touch the rest of the codebase.
+---
 
 ```python
 CONFIG = {
@@ -21,11 +23,11 @@ CONFIG = {
   "column_map": {"name": 0, "price": 1},
   "key_fields": ["name"]
 }
+```
 
-
-⸻
-
-📄 Zero-Code Configuration for New Targets
+---
+### 📄 Zero-Code Configuration for New Targets
+---
 
 Instead of rewriting parsing logic, define what you want to extract using a single CONFIG object:
 	•	url: the page to scrape
@@ -40,10 +42,9 @@ column_map = {
   "rating": 2
 }
 
-
-⸻
-
+---
 💾 Flexible, Pluggable Storage System
+---
 
 The scraper supports a pluggable storage backend interface so data can be saved anywhere:
 	•	✅ Local JSON files (default)
@@ -56,10 +57,9 @@ storage = LocalJSON("output.json")
 # or
 storage = S3JSON(bucket="my-bucket", key="results.json")
 
-
-⸻
-
+---
 🧠 Intelligent Record Deduplication and Merging
+---
 
 Instead of blindly saving new data, the scraper compares incoming rows to previously saved data using your defined key_fields. It:
 	•	Updates changed rows
@@ -68,10 +68,9 @@ Instead of blindly saving new data, the scraper compares incoming rows to previo
 
 merge_unique(existing_data, new_data, key_fields=["name", "location"])
 
-
-⸻
-
+---
 ⚙️ Headless Chrome Automation (Cloud or Local)
+---
 
 Works out of the box in:
 	•	Local dev environments (via ChromeDriver)
@@ -84,10 +83,9 @@ opts.add_argument("--headless=new")
 opts.add_argument("--no-sandbox")
 opts.add_argument("--disable-dev-shm-usage")
 
-
-⸻
-
+---
 ☁️ AWS Lambda Compatible
+---
 
 Deploy the scraper as-is to AWS Lambda for automated or scheduled scraping tasks:
 	•	Built-in lambda_handler entry point
@@ -97,10 +95,9 @@ Deploy the scraper as-is to AWS Lambda for automated or scheduled scraping tasks
 def lambda_handler(event, context):
     run_scraper(CONFIG, S3JSON("my-bucket"))
 
-
-⸻
-
+---
 🔌 Easy Integration with Workflows and Pipelines
+---
 
 Plug into any of your workflows:
 	•	Airflow, Prefect, or Dagster
@@ -111,10 +108,9 @@ from universal_scraper import run_scraper
 
 run_scraper(CONFIG, LocalJSON("results.json"))
 
-
-⸻
-
+---
 🧪 Designed for Extensibility
+---
 
 You can override or extend any part of the pipeline:
 	•	Customize scrape_rows() to parse non-table layouts
@@ -125,17 +121,14 @@ def custom_merge(existing, new):
     # Example: Only add new flagged items
     return existing + [x for x in new if x['flagged'] == "yes"]
 
-
-⸻
-
+---
 ⚙️ Quick Setup
+---
 
 1. Install Python dependencies
 
 pip install selenium boto3  # Add chromedriver-autoinstaller if needed
 
-
-⸻
 
 2. Install Chrome and ChromeDriver
 
@@ -161,10 +154,9 @@ pip install chromedriver-autoinstaller
 import chromedriver_autoinstaller
 chromedriver_autoinstaller.install()
 
-
-⸻
-
+---
 🚀 Quick Start
+---
 
 Update your config in universal_scraper.py:
 
@@ -183,25 +175,23 @@ Then run:
 
 python universal_scraper.py
 
-
-⸻
-
+---
 📁 File Structure
+---
 
 universal_scraper.py     # Main logic and Lambda handler
 README.md                # You're here
 requirements.txt         # Pip dependencies
 
-
-⸻
-
+---
 📄 License
+---
 
 MIT License — free to use, modify, and distribute.
 
-⸻
-
+---
 ✨ Credits
+---
 
 Created for developers who are tired of rewriting the same scraper every week.
 Drop in your config, and you’re scraping in minutes.
