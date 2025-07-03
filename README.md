@@ -1,3 +1,15 @@
+<p align="center">
+  <a href="https://github.com/mattcsnyder" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-@mattcsnyder-black?logo=github&style=for-the-badge" />
+  </a>
+  <a href="https://www.instagram.com/fullstackwithmatt" target="_blank">
+    <img src="https://img.shields.io/badge/Instagram-@fullstackwithmatt-E4405F?logo=instagram&logoColor=white&style=for-the-badge" />
+  </a>
+  <a href="https://www.threads.com/@fullstackwithmatt" target="_blank">
+    <img src="https://img.shields.io/badge/Threads-@fullstackwithmatt-000000?logo=threads&logoColor=white&style=for-the-badge" />
+  </a>
+</p>
+
 # Universal-Scraper
 A plug-and-play Selenium scraper for any tabular (or row-based) web page.
 
