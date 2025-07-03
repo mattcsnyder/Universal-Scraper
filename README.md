@@ -1,21 +1,26 @@
+Got it! Here's your **entire README.md** with every major section and subheading (including all features like 📄 Zero-Code Configuration, 💾 Pluggable Storage, etc.) wrapped between `---` horizontal rules. This provides a consistent, modern divider style and a clear visual structure.
+
+---
+
+````markdown
 <p align="center">
-  <a href="https://github.com/mattcsnyder" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-@mattcsnyder-black?logo=github&style=for-the-badge" />
-  </a>
-  <a href="https://www.instagram.com/fullstackwithmatt" target="_blank">
-    <img src="https://img.shields.io/badge/Instagram-@fullstackwithmatt-E4405F?logo=instagram&logoColor=white&style=for-the-badge" />
-  </a>
-  <a href="https://www.threads.com/@fullstackwithmatt" target="_blank">
-    <img src="https://img.shields.io/badge/Threads-@fullstackwithmatt-000000?logo=threads&logoColor=white&style=for-the-badge" />
-  </a>
+  <h1 align="center">🕷️ Universal Selenium Web Scraper</h1>
+  <p align="center">
+    <strong>Configure once. Scrape anywhere.</strong><br />
+    A modular, pluggable web scraper that works on any tabular site with zero code rewrites.
+  </p>
+  <p align="center">
+    <a href="https://github.com/mattcsnyder" target="_blank">
+      <img src="https://img.shields.io/badge/GitHub-@mattcsnyder-black?logo=github&style=for-the-badge" />
+    </a>
+    <a href="https://www.instagram.com/fullstackwithmatt" target="_blank">
+      <img src="https://img.shields.io/badge/Instagram-@fullstackwithmatt-E4405F?logo=instagram&logoColor=white&style=for-the-badge" />
+    </a>
+    <a href="https://www.threads.com/@fullstackwithmatt" target="_blank">
+      <img src="https://img.shields.io/badge/Threads-@fullstackwithmatt-000000?logo=threads&logoColor=white&style=for-the-badge" />
+    </a>
+  </p>
 </p>
-
-# Universal-Scraper
-A plug-and-play Selenium scraper for any tabular (or row-based) web page.
-
-# 🕷️ Universal Selenium Web Scraper
-
-A plug-and-play, highly configurable Python scraper built with Selenium. Extract tabular or row-based data from any website by simply editing a configuration dictionary — no code rewrites required.
 
 ---
 
@@ -23,10 +28,9 @@ A plug-and-play, highly configurable Python scraper built with Selenium. Extract
 
 ---
 
----
-### 🧩 Modular and Reusable Scraper Architecture  
-This scraper is designed to be reused across any website with tabular or row-based data structures. The scraping logic, browser setup, and storage mechanisms are fully decoupled, making the core logic universally portable with zero rewrites required. Just update the `CONFIG` dictionary — no need to touch the rest of the codebase.
----
+### 🧩 Modular and Reusable Scraper Architecture
+
+This scraper is designed to work across any website with tabular or row-based data. The core logic (scraping, browser setup, storage) is fully decoupled. Just update a config dictionary — no rewrites required.
 
 ```python
 CONFIG = {
@@ -35,143 +39,179 @@ CONFIG = {
   "column_map": {"name": 0, "price": 1},
   "key_fields": ["name"]
 }
-```
+````
 
 ---
+
 ### 📄 Zero-Code Configuration for New Targets
----
 
-Instead of rewriting parsing logic, define what you want to extract using a single CONFIG object:
-	•	url: the page to scrape
-	•	row_css: the CSS selector for rows
-	•	column_map: mapping of field names to <td> indices
-	•	key_fields: which columns uniquely identify a record
+Instead of writing parsing logic, just fill in:
 
+* `url`: page to scrape
+* `row_css`: selector for rows
+* `column_map`: map of column names to indexes
+* `key_fields`: defines uniqueness per row
+
+```python
 row_css = "div.card"
 column_map = {
   "title": 0,
   "author": 1,
   "rating": 2
 }
+```
 
 ---
-💾 Flexible, Pluggable Storage System
----
 
-The scraper supports a pluggable storage backend interface so data can be saved anywhere:
-	•	✅ Local JSON files (default)
-	•	☁️ S3 buckets for serverless/cloud deployments
-	•	🛠️ Easily extendable to SQL, Firebase, Airtable, Google Sheets, etc.
+### 💾 Flexible, Pluggable Storage System
 
+Save data anywhere. Built-in backends include:
+
+* ✅ Local JSON files
+* ☁️ AWS S3
+* 🛠️ Easy to extend to SQL, Firebase, REST APIs, etc.
+
+```python
 from backends import LocalJSON, S3JSON
 
 storage = LocalJSON("output.json")
 # or
 storage = S3JSON(bucket="my-bucket", key="results.json")
+```
 
 ---
-🧠 Intelligent Record Deduplication and Merging
----
 
-Instead of blindly saving new data, the scraper compares incoming rows to previously saved data using your defined key_fields. It:
-	•	Updates changed rows
-	•	Adds new rows
-	•	Skips duplicates
+### 🧠 Intelligent Record Deduplication and Merging
 
+The scraper compares new rows with saved ones using your `key_fields`. It:
+
+* Updates changed rows
+* Skips exact duplicates
+* Adds newly discovered rows
+
+```python
 merge_unique(existing_data, new_data, key_fields=["name", "location"])
+```
 
 ---
-⚙️ Headless Chrome Automation (Cloud or Local)
----
 
-Works out of the box in:
-	•	Local dev environments (via ChromeDriver)
-	•	AWS Lambda (with chromium headless layer)
-	•	CI/CD pipelines using Docker or GitHub Actions
+### ⚙️ Headless Chrome Automation (Local or Cloud)
 
-Chrome is preconfigured for headless use:
+Supports all environments with preconfigured options:
 
+* Local dev
+* Docker or CI pipelines
+* AWS Lambda (with headless Chromium)
+
+```python
 opts.add_argument("--headless=new")
 opts.add_argument("--no-sandbox")
 opts.add_argument("--disable-dev-shm-usage")
+```
 
 ---
-☁️ AWS Lambda Compatible
----
 
-Deploy the scraper as-is to AWS Lambda for automated or scheduled scraping tasks:
-	•	Built-in lambda_handler entry point
-	•	Chrome and driver detection for Lambda environments
-	•	Cloud storage support with S3
+### ☁️ AWS Lambda Compatible
 
+Drop this into Lambda for scheduled scraping:
+
+* Built-in `lambda_handler()`
+* S3-compatible storage
+* Lightweight Chrome configuration
+
+```python
 def lambda_handler(event, context):
     run_scraper(CONFIG, S3JSON("my-bucket"))
+```
 
 ---
-🔌 Easy Integration with Workflows and Pipelines
----
 
-Plug into any of your workflows:
-	•	Airflow, Prefect, or Dagster
-	•	GitHub Actions or cron
-	•	Flask, FastAPI, or any CLI script
+### 🔌 Workflow-Friendly & Extensible
 
+Integrates easily into:
+
+* Airflow, Prefect, Dagster
+* Cron jobs or GitHub Actions
+* Flask/FastAPI backends or CLI tools
+
+```python
 from universal_scraper import run_scraper
-
 run_scraper(CONFIG, LocalJSON("results.json"))
+```
 
----
-🧪 Designed for Extensibility
----
+You can also override internals like:
 
-You can override or extend any part of the pipeline:
-	•	Customize scrape_rows() to parse non-table layouts
-	•	Extend merge_unique() to enforce business logic
-	•	Add post-processing like alerts or data uploads
-
+```python
 def custom_merge(existing, new):
-    # Example: Only add new flagged items
-    return existing + [x for x in new if x['flagged'] == "yes"]
+    return existing + [x for x in new if x["flagged"] == "yes"]
+```
 
 ---
-⚙️ Quick Setup
+
+## ⚙️ Setup Instructions
+
 ---
 
-1. Install Python dependencies
+### 1. Install Python dependencies
 
-pip install selenium boto3  # Add chromedriver-autoinstaller if needed
+```bash
+pip install selenium boto3
+```
 
+> *(Optionally add `chromedriver-autoinstaller` to auto-manage drivers)*
 
-2. Install Chrome and ChromeDriver
+---
 
-🔧 macOS
+### 2. Install Chrome & ChromeDriver
 
+---
+
+#### macOS
+
+```bash
 brew install --cask google-chrome
 brew install chromedriver
+```
 
-🐧 Ubuntu / Debian
+---
 
-sudo apt-get update
-sudo apt-get install -y chromium-browser chromium-chromedriver
+#### Ubuntu / Debian
 
-🪟 Windows
-	1.	Find your Chrome version: chrome://version
-	2.	Download matching ChromeDriver
-	3.	Add the unzipped folder to your system PATH
+```bash
+sudo apt update
+sudo apt install -y chromium-browser chromium-chromedriver
+```
 
-💡 Auto Installer (Dev only)
+---
 
+#### Windows
+
+1. Get Chrome version: `chrome://version`
+2. Download matching driver: [chromedriver.chromium.org](https://chromedriver.chromium.org/downloads)
+3. Add to PATH
+
+---
+
+#### Auto Installer (Local Dev Only)
+
+```bash
 pip install chromedriver-autoinstaller
+```
 
+```python
 import chromedriver_autoinstaller
 chromedriver_autoinstaller.install()
+```
 
 ---
-🚀 Quick Start
+
+## 🚀 Quick Start
+
 ---
 
-Update your config in universal_scraper.py:
+### 1. Configure your target
 
+```python
 CONFIG = {
   "url": "https://example.com/data",
   "row_css": "table tr",
@@ -182,36 +222,53 @@ CONFIG = {
   },
   "key_fields": ["id"]
 }
+```
 
-Then run:
+---
 
+### 2. Run the scraper
+
+```bash
 python universal_scraper.py
+```
 
 ---
-📁 File Structure
+
+## 📁 File Structure
+
 ---
 
-universal_scraper.py     # Main logic and Lambda handler
+```bash
+universal_scraper.py     # Main scraper logic and Lambda handler
 README.md                # You're here
-requirements.txt         # Pip dependencies
+requirements.txt         # Dependencies
+```
 
 ---
-📄 License
+
+## 📄 License
+
 ---
 
 MIT License — free to use, modify, and distribute.
 
 ---
-✨ Credits
+
+## ✨ Credits
+
 ---
 
-Created for developers who are tired of rewriting the same scraper every week.
-Drop in your config, and you’re scraping in minutes.
+Built by [@mattcsnyder](https://github.com/mattcsnyder) for developers who want powerful scraping tools without rewriting boilerplate.
+Just drop in your config, and you're good to go.
 
-Let me know if you want:
-- A **template repo** link
-- A **Dockerfile**
-- Sample **GitHub Actions workflow**
-- Styling for a **landing page version** with visuals
+```
 
-Ready to ship as-is!
+---
+
+Would you like me to:
+- Convert this into a starter **GitHub repository**?
+- Generate a **template Dockerfile**?
+- Add a **badge row** with “Built for Lambda,” “Pluggable,” etc.?
+
+Let me know and I can bundle it for you.
+```
