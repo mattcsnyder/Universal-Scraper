@@ -1,8 +1,3 @@
-Got it! Here's your **entire README.md** with every major section and subheading (including all features like 📄 Zero-Code Configuration, 💾 Pluggable Storage, etc.) wrapped between `---` horizontal rules. This provides a consistent, modern divider style and a clear visual structure.
-
----
-
-````markdown
 <p align="center">
   <h1 align="center">🕷️ Universal Selenium Web Scraper</h1>
   <p align="center">
@@ -22,7 +17,24 @@ Got it! Here's your **entire README.md** with every major section and subheading
   </p>
 </p>
 
----
+<details>
+<summary><strong>📚 Table of Contents</strong></summary>
+
+- [🔧 Feature Highlights](#-feature-highlights)
+  - [🧩 Modular and Reusable Scraper Architecture](#-modular-and-reusable-scraper-architecture)
+  - [📄 Zero-Code Configuration for New Targets](#-zero-code-configuration-for-new-targets)
+  - [💾 Flexible, Pluggable Storage System](#-flexible-pluggable-storage-system)
+  - [🧠 Intelligent Record Deduplication and Merging](#-intelligent-record-deduplication-and-merging)
+  - [⚙️ Headless Chrome Automation (Local or Cloud)](#️-headless-chrome-automation-local-or-cloud)
+  - [☁️ AWS Lambda Compatible](#️-aws-lambda-compatible)
+  - [🔌 Workflow-Friendly & Extensible](#-workflow-friendly--extensible)
+- [⚙️ Setup Instructions](#️-setup-instructions)
+- [🚀 Quick Start](#-quick-start)
+- [📁 File Structure](#-file-structure)
+- [📄 License](#-license)
+- [✨ Credits](#-credits)
+
+</details>
 
 ## 🔧 Feature Highlights
 
