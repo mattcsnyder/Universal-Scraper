@@ -272,15 +272,3 @@ MIT License — free to use, modify, and distribute.
 
 Built by [@mattcsnyder](https://github.com/mattcsnyder) for developers who want powerful scraping tools without rewriting boilerplate.
 Just drop in your config, and you're good to go.
-
-```
-
----
-
-Would you like me to:
-- Convert this into a starter **GitHub repository**?
-- Generate a **template Dockerfile**?
-- Add a **badge row** with “Built for Lambda,” “Pluggable,” etc.?
-
-Let me know and I can bundle it for you.
-```
