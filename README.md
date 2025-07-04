@@ -32,6 +32,7 @@
 - [🚀 Quick Start](#-quick-start)
 - [📁 File Structure](#-file-structure)
 - [📄 License](#-license)
+- [❓ Quick FAQ](#-quick-faq)
 - [✨ Credits](#-credits)
 
 </details>
@@ -263,6 +264,139 @@ requirements.txt         # Dependencies
 ---
 
 MIT License — free to use, modify, and distribute.
+
+
+---
+
+## ❓ Quick FAQ
+
+<details>
+<summary><strong>❓ Quick FAQ (Troubleshooting Cheatsheet)</strong></summary>
+
+---
+
+### 1. `ModuleNotFoundError: No module named 'backends'`
+**Cause:** The example code assumes a `backends.py` file exists.
+
+**Fix:** Either define `LocalJSON` inline in your script:
+```python
+class LocalJSON:
+    def __init__(self, path="results.json"):
+        self.path = path
+
+    def load(self):
+        if not os.path.exists(self.path):
+            return []
+        with open(self.path, "r") as f:
+            return json.load(f)
+
+    def save(self, data):
+        with open(self.path, "w") as f:
+            json.dump(data, f, indent=2)
+````
+
+Or create a new `backends.py` file containing that class and import it with:
+
+```python
+from backends import LocalJSON
+```
+
+---
+
+### 2. `TypeError: Options.binary_location must be a string`
+
+**Cause:** You're assigning `None` to `opts.binary_location` when not running in AWS Lambda.
+
+**Fix:**
+
+```python
+if chrome_binary:
+    opts.binary_location = chrome_binary
+```
+
+---
+
+### 3. Chrome / ChromeDriver version mismatch
+
+**Error:**
+`This version of ChromeDriver only supports Chrome version X`
+
+**Fix:** Auto-install the matching ChromeDriver at runtime:
+
+```bash
+pip install chromedriver-autoinstaller
+```
+
+Then add this to your script before launching the driver:
+
+```python
+import chromedriver_autoinstaller
+chromedriver_autoinstaller.install()
+```
+
+---
+
+### 4. `WebDriverException: cannot find Chrome binary`
+
+**Fixes:**
+
+* ✅ Local: Install Google Chrome.
+* ✅ CI/Docker: Use an image that includes Chrome.
+* ✅ AWS Lambda: Add a headless Chromium layer and set:
+
+```python
+chrome_binary = "/opt/bin/chromium"
+```
+
+---
+
+### 5. Selector finds 0 rows
+
+**Fix:**
+
+* Open DevTools and test:
+
+```js
+document.querySelectorAll("your_row_css").length
+```
+
+* Confirm content isn't loaded asynchronously (JS delay).
+* Use `WebDriverWait()` for dynamic content to load:
+
+```python
+WebDriverWait(driver, 30).until(
+    EC.visibility_of_element_located((By.CSS_SELECTOR, row_css))
+)
+```
+
+---
+
+### 6. Running on AWS Lambda
+
+**Steps:**
+
+1. Zip your code + dependencies
+2. Attach a headless Chromium Lambda Layer
+3. Set handler:
+
+```python
+universal_scraper.lambda_handler
+```
+
+4. Use `S3JSON("your-bucket")` for storage
+
+---
+
+### 7. My output JSON is empty
+
+**Check:**
+
+* Your CSS selector is valid
+* You’re targeting the correct elements
+* `key_fields` aren’t incorrectly filtering all rows
+* Clear your local JSON file and rerun for a clean test
+
+</details>
 
 ---
 
